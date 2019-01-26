@@ -45,7 +45,7 @@ public class SuperUser extends javax.swing.JFrame {
         login = new java.awt.Button();
         jLabel6 = new javax.swing.JLabel();
         button1 = new java.awt.Button();
-        jButton1 = new javax.swing.JButton();
+        adm = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -109,11 +109,16 @@ public class SuperUser extends javax.swing.JFrame {
         });
         jPanel1.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 150, 30));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 102, 0));
-        jButton1.setText("Admin");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 100, 30));
+        adm.setBackground(new java.awt.Color(255, 255, 255));
+        adm.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        adm.setForeground(new java.awt.Color(255, 102, 0));
+        adm.setText("Admin");
+        adm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                admActionPerformed(evt);
+            }
+        });
+        jPanel1.add(adm, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 100, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 490, 660));
 
@@ -186,6 +191,11 @@ public class SuperUser extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_button1ActionPerformed
 
+    private void admActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_admActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,8 +232,8 @@ public class SuperUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adm;
     private java.awt.Button button1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
