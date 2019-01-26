@@ -5,6 +5,13 @@
  */
 package helpingo;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lokesh Chandra
@@ -16,6 +23,7 @@ public class SuperUser extends javax.swing.JFrame {
      */
     public SuperUser() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -29,13 +37,15 @@ public class SuperUser extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        password = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        button1 = new java.awt.Button();
+        login = new java.awt.Button();
         jLabel6 = new javax.swing.JLabel();
+        button1 = new java.awt.Button();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -50,39 +60,60 @@ public class SuperUser extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ink Free", 1, 28)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password :");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(255, 102, 0));
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("jTextField1");
-        jTextField1.setBorder(null);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 250, 40));
+        username.setBackground(new java.awt.Color(255, 102, 0));
+        username.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        username.setForeground(new java.awt.Color(255, 255, 255));
+        username.setBorder(null);
+        jPanel1.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 250, 40));
 
         jLabel5.setFont(new java.awt.Font("Ink Free", 1, 28)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Username :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 102, 0));
-        jPasswordField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.setBorder(null);
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 240, 10));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 240, 10));
+        password.setBackground(new java.awt.Color(255, 102, 0));
+        password.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        password.setBorder(null);
+        jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 230, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 240, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 240, 10));
+
+        login.setBackground(new java.awt.Color(255, 255, 255));
+        login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        login.setFont(new java.awt.Font("Ink Free", 1, 18)); // NOI18N
+        login.setForeground(new java.awt.Color(255, 102, 0));
+        login.setLabel("Login");
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, 150, 30));
+
+        jLabel6.setFont(new java.awt.Font("Ink Free", 1, 48)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Administrator");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 330, 70));
 
         button1.setBackground(new java.awt.Color(255, 255, 255));
         button1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         button1.setFont(new java.awt.Font("Ink Free", 1, 18)); // NOI18N
-        button1.setForeground(new java.awt.Color(255, 102, 0));
-        button1.setLabel("Login");
-        jPanel1.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 150, 30));
+        button1.setForeground(new java.awt.Color(255, 0, 0));
+        button1.setLabel("Close");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 150, 30));
 
-        jLabel6.setFont(new java.awt.Font("Ink Free", 1, 48)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Admin");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 160, 70));
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 102, 0));
+        jButton1.setText("Admin");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 100, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 490, 660));
 
@@ -92,7 +123,7 @@ public class SuperUser extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ink Free", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 102, 0));
         jLabel1.setText("I am here to help you");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 610, 260, 50));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 610, 260, 50));
 
         jLabel3.setFont(new java.awt.Font("Ink Free", 1, 55)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 102, 0));
@@ -106,6 +137,54 @@ public class SuperUser extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    PreparedStatement pstmt=null;
+    ResultSet rs = null;
+    
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        try {
+            // TODO add your handling code here:
+            String uname = username.getText();
+            String pass = password.getText();
+            String resPass = null;
+            
+            String sql = "select password from super_admin where user_handel='"+uname+"'";
+            
+            MysqlConnection msql = new MysqlConnection();
+            
+            pstmt = msql.conn.prepareStatement(sql);
+            
+            rs = pstmt.executeQuery();
+            
+            while(rs.next())
+            {
+                resPass = rs.getString("password");
+            }
+            
+            if(resPass.equals(pass))
+            {
+                System.out.println("Succesfully...........");
+                Admin_Block ab = new Admin_Block();
+                ab.setVisible(true);
+                dispose();
+               // JOptionPane.showMessageDialog(null, "You are not a valid user please contact administrator");
+            }
+            else
+            {
+                 JOptionPane.showMessageDialog(null, "Username or password envalid.....!!!!");
+            }
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_loginActionPerformed
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,6 +223,7 @@ public class SuperUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -152,9 +232,10 @@ public class SuperUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private java.awt.Button login;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
