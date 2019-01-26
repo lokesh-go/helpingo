@@ -5,6 +5,13 @@
  */
 package helpingo;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lokesh Chandra
@@ -16,6 +23,7 @@ public class Admin_Login extends javax.swing.JFrame {
      */
     public Admin_Login() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -40,7 +48,7 @@ public class Admin_Login extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -59,7 +67,7 @@ public class Admin_Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ink Free", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 102, 0));
         jLabel1.setText("I am here to help you");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 610, 260, 50));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 600, 260, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 650));
 
@@ -97,17 +105,74 @@ public class Admin_Login extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(255, 102, 0));
         jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 530, 90, -1));
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setForeground(new java.awt.Color(255, 102, 0));
-        jButton2.setText("Login");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 460, 90, -1));
+        login.setBackground(new java.awt.Color(255, 255, 255));
+        login.setForeground(new java.awt.Color(255, 102, 0));
+        login.setText("Login");
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+        jPanel2.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 460, 90, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 500, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        try {
+            // TODO add your handling code here:
+            String uname = username.getText();
+            String pass = password.getText();
+            String dbpass=null;
+            String sec=null;
+            
+            String sql = "select * from admin where user_handle='"+uname+"'";
+            
+            MysqlConnection msql = new MysqlConnection();
+            PreparedStatement pstmt = msql.conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next())
+            {
+                dbpass = rs.getString("password");
+                sec = rs.getString("region");
+            }
+           
+            if(dbpass.equals(pass))
+            {
+                Admin_Panel ap = new Admin_Panel();
+                ap.title.setText("Welcome"+"  "+uname);
+                ap.sector.setText("Sector"+"  "+sec);
+                ap.setVisible(true);
+                dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "userid or password wrong...!!!!");
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin_Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_loginActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        SuperUser su = new SuperUser();
+        su.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,7 +211,6 @@ public class Admin_Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -157,6 +221,7 @@ public class Admin_Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton login;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

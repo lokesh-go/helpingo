@@ -47,7 +47,7 @@ public class Notification extends javax.swing.JFrame {
             while(rs.next())
             {
                 
-                 model.addRow(new Object[]{rs.getString("serial_no"),rs.getString("mobile"),rs.getString("region"),rs.getString("situation_type"),rs.getString("types_of_problem"),rs.getString("situation_stetus"),rs.getString("date1"),rs.getString("time1")});
+                 model.addRow(new Object[]{rs.getString("serial_no"),rs.getString("mobile"),rs.getString("region"),rs.getString("situation_type"),rs.getString("types_of_problem"),rs.getString("date1"),rs.getString("time1")});
 
             }
             
@@ -77,13 +77,13 @@ public class Notification extends javax.swing.JFrame {
         resTable.setForeground(new java.awt.Color(255, 102, 0));
         resTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Serial_No", "Mobile_No", "Region", "Situation_Type", "Problem_Type", "Situation_Status", "Date", "Time"
+                "Serial_No", "Mobile_No", "Region", "Situation_Type", "Problem_Type", "Date", "Time"
             }
         ));
         resTable.setRowHeight(25);
@@ -104,7 +104,7 @@ public class Notification extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 560, 150, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 570, 150, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 630));
 

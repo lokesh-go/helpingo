@@ -108,15 +108,17 @@ public class Admin_Panel extends javax.swing.JFrame {
 
         sector.setEditable(false);
         sector.setBackground(new java.awt.Color(255, 255, 255));
-        sector.setFont(new java.awt.Font("Ink Free", 1, 20)); // NOI18N
+        sector.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         sector.setForeground(new java.awt.Color(255, 102, 0));
-        jPanel1.add(sector, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 350, -1));
+        sector.setBorder(null);
+        jPanel1.add(sector, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 290, -1));
 
         title.setEditable(false);
         title.setBackground(new java.awt.Color(255, 255, 255));
-        title.setFont(new java.awt.Font("Ink Free", 1, 20)); // NOI18N
+        title.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         title.setForeground(new java.awt.Color(255, 102, 0));
-        jPanel1.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 350, -1));
+        title.setBorder(null);
+        jPanel1.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 520, 290, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 650));
 
@@ -300,7 +302,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JButton logout;
     private javax.swing.JTextField notice;
     private javax.swing.JButton notification;
-    private javax.swing.JTextField sector;
-    private javax.swing.JTextField title;
+    public javax.swing.JTextField sector;
+    public javax.swing.JTextField title;
     // End of variables declaration//GEN-END:variables
 }

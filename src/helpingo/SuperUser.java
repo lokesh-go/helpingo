@@ -193,6 +193,9 @@ public class SuperUser extends javax.swing.JFrame {
 
     private void admActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admActionPerformed
         // TODO add your handling code here:
+        Admin_Login al = new Admin_Login();
+        al.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_admActionPerformed
 
