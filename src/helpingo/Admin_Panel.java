@@ -8,6 +8,8 @@ package helpingo;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +30,7 @@ public class Admin_Panel extends javax.swing.JFrame {
      */
     Timer t;
     static int cn=0;
+    InetAddress obj;
     public Admin_Panel() {
         initComponents();
         t=new Timer();
@@ -61,14 +64,40 @@ public class Admin_Panel extends javax.swing.JFrame {
                         if(cn<rs.getInt(1))
                         {
                             cn = rs.getInt(1);
-                            notice.setText("NEW");
+                            notice.setText("NEW MSG");
                         }
                         
                     }
                     
+                    
+                    try {
+                        //networking............
+
+                        obj = InetAddress.getByName("192.168.0.101");
+                    } catch (UnknownHostException ex) {
+                        Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        if(obj.isReachable(2000))
+                        {
+                           // System.out.println("Host is reachable");
+                            camn1.setText("ONLINE");
+                        }
+                        else
+                        {
+                            //System.out.println("Sorry ! ");
+                            camn1.setText("OFFLINE");
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
             }
         },0, 5000);
         
@@ -85,7 +114,7 @@ public class Admin_Panel extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         cam01 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        notice = new javax.swing.JTextField();
+        camn2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         notification = new javax.swing.JButton();
@@ -96,6 +125,9 @@ public class Admin_Panel extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         logout = new javax.swing.JButton();
+        notice = new javax.swing.JTextField();
+        camn3 = new javax.swing.JTextField();
+        camn1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -141,12 +173,18 @@ public class Admin_Panel extends javax.swing.JFrame {
         jLabel6.setText("Live Streaming :");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 240, 30));
 
-        notice.setEditable(false);
-        notice.setBackground(new java.awt.Color(255, 102, 0));
-        notice.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
-        notice.setForeground(new java.awt.Color(0, 0, 0));
-        notice.setBorder(null);
-        jPanel2.add(notice, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 80, 30));
+        camn2.setEditable(false);
+        camn2.setBackground(new java.awt.Color(255, 102, 0));
+        camn2.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        camn2.setForeground(new java.awt.Color(0, 0, 0));
+        camn2.setText("OFFLINE");
+        camn2.setBorder(null);
+        camn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camn2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(camn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 80, 30));
 
         jLabel7.setFont(new java.awt.Font("HP Simplified Light", 1, 30)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -172,7 +210,7 @@ public class Admin_Panel extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CAM 01");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, -1, -1));
 
         cam02.setBackground(new java.awt.Color(255, 255, 255));
         cam02.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -183,7 +221,7 @@ public class Admin_Panel extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("CAM 02");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, -1, -1));
 
         cam03.setBackground(new java.awt.Color(255, 255, 255));
         cam03.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -194,7 +232,7 @@ public class Admin_Panel extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("CAM 03");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -210,6 +248,39 @@ public class Admin_Panel extends javax.swing.JFrame {
             }
         });
         jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 572, 110, 30));
+
+        notice.setEditable(false);
+        notice.setBackground(new java.awt.Color(255, 102, 0));
+        notice.setFont(new java.awt.Font("DialogInput", 1, 28)); // NOI18N
+        notice.setForeground(new java.awt.Color(0, 0, 0));
+        notice.setBorder(null);
+        jPanel2.add(notice, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 130, 30));
+
+        camn3.setEditable(false);
+        camn3.setBackground(new java.awt.Color(255, 102, 0));
+        camn3.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        camn3.setForeground(new java.awt.Color(0, 0, 0));
+        camn3.setText("OFFLINE");
+        camn3.setBorder(null);
+        camn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camn3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(camn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 80, 30));
+
+        camn1.setEditable(false);
+        camn1.setBackground(new java.awt.Color(255, 102, 0));
+        camn1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        camn1.setForeground(new java.awt.Color(0, 0, 0));
+        camn1.setText("OFFLINE");
+        camn1.setBorder(null);
+        camn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                camn1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(camn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 80, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 650, 650));
 
@@ -234,10 +305,10 @@ public class Admin_Panel extends javax.swing.JFrame {
 
     private void notificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificationActionPerformed
         // TODO add your handling code here:
-        String s = notice.getText();
+        String s = camn2.getText();
         
         if("NEW".equals(s))
-            notice.setText("");
+            camn2.setText("");
         Notification nf = new Notification();
         nf.setVisible(true);
         
@@ -249,6 +320,18 @@ public class Admin_Panel extends javax.swing.JFrame {
         al.setVisible(true);
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
+
+    private void camn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_camn2ActionPerformed
+
+    private void camn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_camn3ActionPerformed
+
+    private void camn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_camn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,6 +372,9 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JButton cam01;
     private javax.swing.JButton cam02;
     private javax.swing.JButton cam03;
+    private javax.swing.JTextField camn1;
+    private javax.swing.JTextField camn2;
+    private javax.swing.JTextField camn3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
