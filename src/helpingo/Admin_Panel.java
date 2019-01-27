@@ -305,10 +305,10 @@ public class Admin_Panel extends javax.swing.JFrame {
 
     private void notificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificationActionPerformed
         // TODO add your handling code here:
-        String s = camn2.getText();
+        String s = notice.getText();
         
-        if("NEW".equals(s))
-            camn2.setText("");
+        if("NEW MSG".equals(s))
+            notice.setText("");
         Notification nf = new Notification();
         nf.setVisible(true);
         
